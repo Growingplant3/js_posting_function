@@ -10,16 +10,17 @@
         <textarea id=“mTextarea” rows="4" cols="40" placeholder="ツイート"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <p id="log"></p>
+      <p id="log">ここに出力</p>
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn");
         btn.addEventListener('click', function() {
-          console.log("あああ");
+          console.log("あああ"); // "あああ"が表示されればclickイベントは正しく動いている
           var log = document.getElementById("log");
-          var input = document.getElementById("mTextarea").value;
-          console.log(input);
-          log.innerText = input;
+          console.log(log); // "log"が出力されればgetElementByIdは正しく動いている
+          var input = document.getElementById("mTextarea");
+          console.log(input); // "input"が出力されればgetElementByIdは正しく動いている　→　しかしnull
+          log.innerText = input.value; // 入力・出力はできたとしても、投稿機能の仕様は満たしていない
         });
       </script>  
     </body>  

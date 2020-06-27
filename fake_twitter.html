@@ -17,10 +17,10 @@
         btn.addEventListener('click', function() {
           console.log("あああ"); // "あああ"が表示されればclickイベントは正しく動いている
           var log = document.getElementById("log");
-          console.log(log); // "log"が出力されればgetElementByIdは正しく動いている
+          console.log(log); // "<p id="log">ここに出力</p>"が出力されればgetElementByIdは正しく動いている
           var input = document.getElementById("mTextarea");
           console.log(input); // "input"が出力されればgetElementByIdは正しく動いている　→　しかしnull
-          log.innerText = input.value; // 入力・出力はできたとしても、投稿機能の仕様は満たしていない
+          log.innerText = input.value; // 入力・出力ができたとしても、投稿機能の仕様は満たしていない
         });
       </script>  
     </body>  

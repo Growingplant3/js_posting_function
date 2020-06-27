@@ -9,19 +9,18 @@
       <form>  
         <textarea id=“mTextarea” rows="4" cols="40" placeholder="ツイート"></textarea><br>
       </form>  
-      <button class="submitBtn">投稿</button>
-      <div id="log"></div>
+      <button id="submitBtn">投稿</button>
+      <p id="log"></p>
 
       <script type="text/javascript">
-        const btn = document.getElementById("submitBtn");
-        btn.onclick = function() {
-          var input = document.querySelector("mTextarea");
+        var btn = document.getElementById("submitBtn");
+        btn.addEventListener('click', function() {
+          console.log("あああ");
           var log = document.getElementById("log");
-          input.addEventListener("change", updateValue);
-          function updateValue(e) {
-            log.textContent = e.srcElement.value;
-          };
-        };
+          var input = document.getElementById("mTextarea").value;
+          console.log(input);
+          log.innerText = input;
+        });
       </script>  
     </body>  
 </html>

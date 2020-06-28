@@ -7,20 +7,20 @@
     </head>  
     <body>  
       <form>  
-        <textarea id=“mTextarea” rows="4" cols="40" placeholder="ツイート"></textarea><br>
+        <textarea id="mTextarea" rows="4" cols="40" placeholder="ツイート"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <p id="log">ここに出力</p>
+      <p id="log"></p>
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn");
         btn.addEventListener('click', function() {
-          console.log("あああ"); // "あああ"が表示されればclickイベントは正しく動いている
+          console.log("あああ"); // "あああ"が出力されれば'click'イベントは正しく動いている
           var log = document.getElementById("log");
-          console.log(log); // "<p id="log">ここに出力</p>"が出力されればgetElementByIdは正しく動いている
+          console.log(log); // "<p id="log">入力された文字列</p>"が出力されればgetElementByIdは正しく動いている
           var input = document.getElementById("mTextarea");
-          console.log(input); // "input"が出力されればgetElementByIdは正しく動いている　→　しかしnull
-          log.innerText = input.value; // 入力・出力ができたとしても、投稿機能の仕様は満たしていない
+          console.log(input); // "<textarea id="mTextarea" rows="4" cols="40" placeholder="ツイート"></textarea>"が出力されればgetElementByIdは正しく動いている
+          log.innerText += input.value + `\n`; // 改行込みで入力された文字列が出力されれば投稿機能を満たす
         });
       </script>  
     </body>  

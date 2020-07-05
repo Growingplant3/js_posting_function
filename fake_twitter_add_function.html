@@ -7,32 +7,45 @@
     </head>  
     <body>  
       <form>  
-        <textarea id="mTextarea" rows="4" cols="40" placeholder="ツイート"></textarea><br>
+        <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button><br>
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn");
         btn.addEventListener('click', function() {
-          var input = document.getElementById("mTextarea"); // 入力部分
-          console.log(input);
-          var child = document.createElement("li") // 子要素を入れるタグを生み出す
-          console.log(child);
-          child.setAttribute("id","output"); // 子要素を入れるタグに目印"output"をつける
-          child.innerText = input.value;
-          var parent = document.createElement("ul"); // 親要素を入れるタグを生み出す
-          parent.appendChild(child);
-          console.log(parent);
+          var parent = document.createElement("div"); // 子要素を入れる親タグを生み出す
+          parent.id = "childs_list" // 親idをchilds_listと命名する
+          document.body.appendChild(parent); // bodyの最後に変数parentを入れる
+          var input = document.getElementById("mTextarea"); // 入力部分を取得
+          var childs_list = document.getElementById("childs_list"); //親idを取得
+          var child = document.createElement("p") // 子要素を入れるタグを生み出す
+          child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
+          childs_list.appendChild(child); // 親idに子要素を入れる
+
           var today = new Date();
+          var year = today.getFullYear();
           var month = today.getMonth() + 1;
           var day = today.getDate();
           var hour = today.getHours();
           var minute = today.getMinutes();
           var second = today.getSeconds();
-          child.innerHTML += "投稿日 "+month+"月"+day+"日"+hour+":"+minute+":"+second;
+          if (hour < 10) {
+            hour = "0" + hour
+          }
+          if (minute < 10) {
+            minute = "0" + minute
+          }
+          if (second < 10) {
+            second = "0" + second
+          }
+          child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           child.style.border = "solid 1px green";
           child.style.borderRadius = "10px";
           child.style.marginTop = "6px";
+          // child.style.marginright = "6px";
+          child.style.padding = "4px";
+          child.style.display = "inline-block";
         });
       </script>  
     </body>  

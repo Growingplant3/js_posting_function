@@ -9,40 +9,45 @@
       <form>  
         <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
-      <button id="submitBtn">投稿</button><br>
+      <button id="submitBtn">投稿</button>
+      <button id="img_posting_btn">画像ファイルを投稿</button>
 
       <script type="text/javascript">
-        var btn = document.getElementById("submitBtn");
-        var parent = document.createElement("ul"); // 子要素を入れる親タグを生み出す
+        var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
+        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
+        var parent = document.createElement("ul"); // 子タグを入れる親タグを生み出す
+        parent.id = "childs_list" // 親idをchilds_listと命名する
+        document.body.appendChild(parent); // bodyの最後に親タグを入れる
+        var childs_list = document.getElementById("childs_list"); //親idを取得
+
         btn.addEventListener('click', function() {
-          parent.id = "childs_list" // 親idをchilds_listと命名する
-          document.body.appendChild(parent); // bodyの最後に変数parentを入れる
           var input = document.getElementById("mTextarea"); // 入力部分を取得
-          var childs_list = document.getElementById("childs_list"); //親idを取得
           var child = document.createElement("li") // 子要素を入れるタグを生み出す
           child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
           childs_list.appendChild(child); // 親idに子要素を入れる
 
-          var today = new Date();
-          var year = today.getFullYear();
-          var month = today.getMonth() + 1;
-          var day = today.getDate();
-          var hour = today.getHours();
-          var minute = today.getMinutes();
-          var second = today.getSeconds();
+          var today = new Date(); // 年月日時間を取得
+          var year = today.getFullYear(); // 年を取得
+          var month = today.getMonth() + 1; // 月を取得、0〜11だから+1する
+          var day = today.getDate(); // 日を取得
+          var hour = today.getHours(); // 時を取得
+          var minute = today.getMinutes(); // 分を取得
+          var second = today.getSeconds(); // 秒を取得
           if (hour < 10) {
-            hour = "0" + hour
+            hour = "0" + hour // 時が1桁だったら、0を足して2桁にする
           }
           if (minute < 10) {
-            minute = "0" + minute
+            minute = "0" + minute // 分が1桁だったら、0を足して2桁にする
           }
           if (second < 10) {
-            second = "0" + second
+            second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
+
+          // 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
-          child.style.border = "solid 1px green";
-          child.style.borderRadius = "10px";
-          child.style.display = "inline-block";
+          // いろいろ整形
+          child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
+          child.style.borderRadius = "10px"; // 枠に丸みをつける
           child.style.padding = "6px";
           child.style.marginTop = "6px";
           child.style.marginRight = "6px";
@@ -50,7 +55,14 @@
           childs_list.style.padding = "0px";
           childs_list.style.marginBottom = "0px";
           childs_list.style.marginTop = "0px";
+          childs_list.style.width = "300px";
         });
+
+        button.onclick = function() {
+          var img = document.createElement("img");
+          var img_tag = document.getElementById("img");
+          var img_file_add_id = 1;
+        };
       </script>  
     </body>  
 </html>

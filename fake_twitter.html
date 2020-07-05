@@ -10,33 +10,14 @@
         <textarea id="mTextarea" rows="4" cols="40" placeholder="ツイート"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button><br>
-      <table id="table">
-        <tr>
-          <th id="title"></th>
-        </tr>
-        <tr>
-          <td id="output"></td>
-        </tr>
-      </table>
+      <p id="output"></p>
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn");
         btn.addEventListener('click', function() {
           var output = document.getElementById("output");
           var input = document.getElementById("mTextarea");
-          var title = document.getElementById("title");
-          var table = document.getElementById("table");
-          var today = new Date();
-          var month = today.getMonth() + 1;
-          var day = today.getDate();
-          var hour = today.getHours();
-          var minute = today.getMinutes();
-          var second = today.getSeconds();
           output.innerText += input.value + "\n";
-          title.innerHTML += "投稿日 "+month+"月"+day+"日"+hour+":"+minute+":"+second;
-          table.style.border = "solid 1px green";
-          table.style.borderRadius = "10px";
-          table.style.marginTop = "6px";
         });
       </script>  
     </body>  

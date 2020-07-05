@@ -1,0 +1,39 @@
+<!DOCTYPE html>  
+  <html lang="ja">  
+  <head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+      <title>○イッター</title>  
+    </head>  
+    <body>  
+      <form>  
+        <textarea id="mTextarea" rows="4" cols="40" placeholder="ツイート"></textarea><br>
+      </form>  
+      <button id="submitBtn">投稿</button><br>
+
+      <script type="text/javascript">
+        var btn = document.getElementById("submitBtn");
+        btn.addEventListener('click', function() {
+          var input = document.getElementById("mTextarea"); // 入力部分
+          console.log(input);
+          var child = document.createElement("li") // 子要素を入れるタグを生み出す
+          console.log(child);
+          child.setAttribute("id","output"); // 子要素を入れるタグに目印"output"をつける
+          child.innerText = input.value;
+          var parent = document.createElement("ul"); // 親要素を入れるタグを生み出す
+          parent.appendChild(child);
+          console.log(parent);
+          var today = new Date();
+          var month = today.getMonth() + 1;
+          var day = today.getDate();
+          var hour = today.getHours();
+          var minute = today.getMinutes();
+          var second = today.getSeconds();
+          child.innerHTML += "投稿日 "+month+"月"+day+"日"+hour+":"+minute+":"+second;
+          child.style.border = "solid 1px green";
+          child.style.borderRadius = "10px";
+          child.style.marginTop = "6px";
+        });
+      </script>  
+    </body>  
+</html>

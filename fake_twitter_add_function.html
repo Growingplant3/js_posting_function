@@ -13,13 +13,13 @@
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn");
+        var parent = document.createElement("ul"); // 子要素を入れる親タグを生み出す
         btn.addEventListener('click', function() {
-          var parent = document.createElement("div"); // 子要素を入れる親タグを生み出す
           parent.id = "childs_list" // 親idをchilds_listと命名する
           document.body.appendChild(parent); // bodyの最後に変数parentを入れる
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var childs_list = document.getElementById("childs_list"); //親idを取得
-          var child = document.createElement("p") // 子要素を入れるタグを生み出す
+          var child = document.createElement("li") // 子要素を入れるタグを生み出す
           child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
           childs_list.appendChild(child); // 親idに子要素を入れる
 
@@ -42,10 +42,14 @@
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           child.style.border = "solid 1px green";
           child.style.borderRadius = "10px";
-          child.style.marginTop = "6px";
-          // child.style.marginright = "6px";
-          child.style.padding = "4px";
           child.style.display = "inline-block";
+          child.style.padding = "6px";
+          child.style.marginTop = "6px";
+          child.style.marginRight = "6px";
+          child.style.marginBottom = "6px";
+          childs_list.style.padding = "0px";
+          childs_list.style.marginBottom = "0px";
+          childs_list.style.marginTop = "0px";
         });
       </script>  
     </body>  

@@ -24,21 +24,31 @@
         btn.addEventListener('click', function() {
           // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
-          var child = document.createElement("li") // 子要素を入れるタグを生み出す
+          var child = document.createElement("li"); // 子要素を入れるタグを生み出す
+          child.id = "grand_childs_list";
+          var grand_childs_list = document.getElementById("grand_childs_list");
+          if ( input.value ) {
           child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
+          }
           childs_list.appendChild(child); // 親タグ内に子要素を入れる
 
           // 画像ファイルが選択されていれば出力
-          var img_file = button.files[0]; // 画像選択前なら値がない,選択後なら値がある
-          if ( img_file ) {
-            var img_tag = document.getElementById("preview"); // imgタグを取得する
+          var img_file = button.files[0]; // 画像ファイルを取得する
+          if ( img_file ) { // 画像選択前なら値がない,選択後なら値がある
+            var grand_child = document.createElement("img");
+            grand_child.id = "output_img";
+            grand_child.src = " ";
+            grand_childs_list.appendChild(grand_child);
+            var img_tag = document.getElementById("output_img"); // output_imgタグを取得する
             var img = new FileReader();
+            img.onload = (function() {
               img_tag.src = img.result;
-            img.readAsDataURL(img_file); // パスを取得する
+            });
+            var img_src = img.readAsDataURL(img_file); // パスを取得する
             img_tag.height = 250; // リサイズ
             img_tag.width = 250; // リサイズ
-            console.log(img_tag.src);
-            child.insertAdjacentHTML('beforeend','<img src="${img_tag.src}">');
+            img_tag.src = "${img.src}";
+            console.log(img.src);
             child.innerText += "\n";
           };
           // 時計関連

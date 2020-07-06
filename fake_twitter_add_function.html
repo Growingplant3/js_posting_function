@@ -10,7 +10,7 @@
         <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <input type="file" id="img_posting_btn" accept="image/*" onchange="handleFiles(this.files)">
+      <input type="file" id="img_posting_btn" accept="image/*" onchange="handleFiles(this.files)"><br>
       <img id="preview" src=" ">
 
       <script type="text/javascript">
@@ -22,10 +22,17 @@
 
         // 投稿ボタン
         btn.addEventListener('click', function() {
+          // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var child = document.createElement("li") // 子要素を入れるタグを生み出す
           child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
           childs_list.appendChild(child); // 親タグ内に子要素を入れる
+
+          // 画像ファイルが選択されていれば出力
+          var img_file = button.files[0];
+          if ( img_file ) {
+            child.insertAdjacentHTML('afterend',img_file);
+          }
           // 時計関連
           var today = new Date(); // 年月日時間を取得
           var year = today.getFullYear(); // 年を取得
@@ -43,8 +50,6 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
-          // 画像ファイルが選択されていれば出力
-
           // 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           // いろいろ整形
@@ -64,14 +69,14 @@
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         function handleFiles(files) {
           var img_file = button.files[0];
-          console.log(img_file);
           var img_tag = document.getElementById("preview");
           var img = new FileReader();
           img.onload = (function() {
             img_tag.src = img.result;
           })
-          console.log(img_tag.src);
           img.readAsDataURL(img_file);
+          img_tag.height = 250;
+          img_tag.width = 250;
         };
       </script>  
     </body>  

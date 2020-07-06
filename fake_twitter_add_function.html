@@ -10,14 +10,16 @@
         <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <button id="img_posting_btn">ファイルを選択</button>
+      <input type="file" id="img_posting_btn" accept="image/*">
+      <img id="preview" src=" ">
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
         var parent = document.createElement("ul"); // 子タグを入れる親タグを生み出す
-        parent.id = "childs_list" // 親idをchilds_listと命名する
+        parent.id = "childs_list" // 親idをchilds_listと宣言する
         document.body.appendChild(parent); // bodyの最後に親タグを入れる
         var childs_list = document.getElementById("childs_list"); //親idを取得
+
         // 投稿ボタン
         btn.addEventListener('click', function() {
           var input = document.getElementById("mTextarea"); // 入力部分を取得
@@ -41,6 +43,8 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
+          // 画像ファイルが選択されていれば出力
+
           // 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           // いろいろ整形
@@ -55,17 +59,21 @@
           childs_list.style.marginTop = "0px";
           childs_list.style.width = "300px";
         });
+
         // 画像ファイル選択ボタン
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         button.onclick = function() {
-          console.log("aaaa");
-          var preview = document.createElement("img"); // imgタグを生み出す
-          preview.id = "img_place"; // imgタグにidを付与
-          console.log(preview);
-          var img_file = new FileReader();
-          img_file.onload = function() {
-            console.log("bbb"); // ここで画像ファイル読み込み・画像ファイル名取得・プレビュー表示がしたい
-          }
+          var img_tag = document.getElementById("preview");
+          var img_file = button.files[0];
+          var img = new FileReader();
+          img.addEventListener("load", function () {
+            img_tag.src = img.result;
+          });
+          console.log(img_tag);
+          console.log(img_file);
+          console.log(img);
+          console.log(img_tag.src);
+          img.readAsDataURL(img_file);
         };
       </script>  
     </body>  

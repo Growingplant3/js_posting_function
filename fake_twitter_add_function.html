@@ -10,22 +10,21 @@
         <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <button id="img_posting_btn">画像ファイルを投稿</button>
+      <button id="img_posting_btn">ファイルを選択</button>
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
-        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         var parent = document.createElement("ul"); // 子タグを入れる親タグを生み出す
         parent.id = "childs_list" // 親idをchilds_listと命名する
         document.body.appendChild(parent); // bodyの最後に親タグを入れる
         var childs_list = document.getElementById("childs_list"); //親idを取得
-
+        // 投稿ボタン
         btn.addEventListener('click', function() {
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var child = document.createElement("li") // 子要素を入れるタグを生み出す
           child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
-          childs_list.appendChild(child); // 親idに子要素を入れる
-
+          childs_list.appendChild(child); // 親タグ内に子要素を入れる
+          // 時計関連
           var today = new Date(); // 年月日時間を取得
           var year = today.getFullYear(); // 年を取得
           var month = today.getMonth() + 1; // 月を取得、0〜11だから+1する
@@ -42,7 +41,6 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
-
           // 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           // いろいろ整形
@@ -57,11 +55,17 @@
           childs_list.style.marginTop = "0px";
           childs_list.style.width = "300px";
         });
-
+        // 画像ファイル選択ボタン
+        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         button.onclick = function() {
-          var img = document.createElement("img");
-          var img_tag = document.getElementById("img");
-          var img_file_add_id = 1;
+          console.log("aaaa");
+          var preview = document.createElement("img"); // imgタグを生み出す
+          preview.id = "img_place"; // imgタグにidを付与
+          console.log(preview);
+          var img_file = new FileReader();
+          img_file.onload = function() {
+            console.log("bbb"); // ここで画像ファイル読み込み・画像ファイル名取得・プレビュー表示がしたい
+          }
         };
       </script>  
     </body>  

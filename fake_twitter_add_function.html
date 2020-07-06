@@ -29,10 +29,18 @@
           childs_list.appendChild(child); // 親タグ内に子要素を入れる
 
           // 画像ファイルが選択されていれば出力
-          var img_file = button.files[0];
+          var img_file = button.files[0]; // 画像選択前なら値がない,選択後なら値がある
           if ( img_file ) {
-            child.insertAdjacentHTML('afterend',img_file);
-          }
+            var img_tag = document.getElementById("preview"); // imgタグを取得する
+            var img = new FileReader();
+              img_tag.src = img.result;
+            img.readAsDataURL(img_file); // パスを取得する
+            img_tag.height = 250; // リサイズ
+            img_tag.width = 250; // リサイズ
+            console.log(img_tag.src);
+            child.insertAdjacentHTML('beforeend','<img src="${img_tag.src}">');
+            child.innerText += "\n";
+          };
           // 時計関連
           var today = new Date(); // 年月日時間を取得
           var year = today.getFullYear(); // 年を取得
@@ -68,15 +76,15 @@
         // 画像ファイル選択ボタン
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         function handleFiles(files) {
-          var img_file = button.files[0];
-          var img_tag = document.getElementById("preview");
+          var img_file = button.files[0]; // 画像ファイルを取得する
+          var img_tag = document.getElementById("preview"); // imgタグを取得する
           var img = new FileReader();
           img.onload = (function() {
             img_tag.src = img.result;
-          })
-          img.readAsDataURL(img_file);
-          img_tag.height = 250;
-          img_tag.width = 250;
+          });
+          img.readAsDataURL(img_file); // パスを取得する
+          img_tag.height = 250; // リサイズ
+          img_tag.width = 250; // リサイズ
         };
       </script>  
     </body>  

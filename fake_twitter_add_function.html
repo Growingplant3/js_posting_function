@@ -10,7 +10,7 @@
         <textarea id="mTextarea" rows="4" cols="40" placeholder="いまどうしてる？"></textarea><br>
       </form>  
       <button id="submitBtn">投稿</button>
-      <input type="file" id="img_posting_btn" accept="image/*">
+      <input type="file" id="img_posting_btn" accept="image/*" onchange="handleFiles(this.files)">
       <img id="preview" src=" ">
 
       <script type="text/javascript">
@@ -62,18 +62,15 @@
 
         // 画像ファイル選択ボタン
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
-        button.onclick = function() {
-          var img_tag = document.getElementById("preview");
+        function handleFiles(files) {
           var img_file = button.files[0];
-          var img = new FileReader();
-          img.addEventListener("load", function () {
-            img_tag.src = img.result;
-          });
-          console.log(img_tag);
           console.log(img_file);
-          console.log(img);
+          var img_tag = document.getElementById("preview");
+          var img = new FileReader();
+          img.onload = (function() {
+            img_tag.src = img_file.readAsDataURL().result;
+          })
           console.log(img_tag.src);
-          img.readAsDataURL(img_file);
         };
       </script>  
     </body>  

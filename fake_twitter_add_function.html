@@ -18,40 +18,33 @@
         var parent = document.createElement("ul"); // 子タグを入れる親タグを生み出す
         parent.id = "childs_list" // 親idをchilds_listと宣言する
         document.body.appendChild(parent); // bodyの最後に親タグを入れる
-        var childs_list = document.getElementById("childs_list"); //親idを取得
 
         // 投稿ボタン
         btn.addEventListener('click', function() {
           // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var child = document.createElement("li"); // 子要素を入れるタグを生み出す
-          child.id = "grand_childs_list";
-          var grand_childs_list = document.getElementById("grand_childs_list");
-          if ( input.value ) {
-          child.innerText = input.value + "\n"; // 子要素に入力した文字列を出力する
-          }
+          child.id = "grand_childs_list"; // 孫要素を入れる子id
+          var childs_list = document.getElementById("childs_list"); //親idを取得
           childs_list.appendChild(child); // 親タグ内に子要素を入れる
-
-          // 画像ファイルが選択されていれば出力
+          // 画像ファイル
           var img_file = button.files[0]; // 画像ファイルを取得する
-          if ( img_file ) { // 画像選択前なら値がない,選択後なら値がある
-            var grand_child = document.createElement("img");
+          if ( img_file ) { 
+            var grand_child = document.createElement("img"); // 画像ファイルがあれば、孫要素のimgタグを生み出す
             grand_child.id = "output_img";
             grand_child.src = " ";
-            grand_childs_list.appendChild(grand_child);
-            var img_tag = document.getElementById("output_img"); // output_imgタグを取得する
+            var grand_childs_list = document.getElementById("grand_childs_list"); // 子idを取得
+            grand_childs_list.appendChild(grand_child); // 孫要素を子タグに追加
+            var img_tag = document.getElementById("output_img"); // 孫要素を取得
             var img = new FileReader();
             img.onload = (function() {
-              img_tag.src = img.result;
+              grand_child.src = img.result;
             });
             var img_src = img.readAsDataURL(img_file); // パスを取得する
-            img_tag.height = 250; // リサイズ
-            img_tag.width = 250; // リサイズ
-            img_tag.src = "${img.src}"; // imgが用意されていれば、output_imgタグのsrcにパスを埋める
-            console.log(img.src);
-            child.innerText += "\n";
+            img_tag.height = 280; // リサイズ
+            img_tag.width = 280; // リサイズ
           };
-          // 時計関連
+          // 時計
           var today = new Date(); // 年月日時間を取得
           var year = today.getFullYear(); // 年を取得
           var month = today.getMonth() + 1; // 月を取得、0〜11だから+1する
@@ -68,7 +61,24 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
-          // 投稿する文字列の下に年月日時間を出力
+
+          // 投稿部分
+          // 文字列も画像ファイルもなければ
+          if ( input.value === null && img_file === null ) {
+            alert('投稿するものがありません。');
+            return
+          }
+          // 文字列があれば
+          if ( input.value ) {
+            child.innerText += input.value + "\n";
+            console.log("文字列あります");
+          }
+          // 画像ファイルがあれば
+          if ( img_file ) {
+            img_tag.src = "${grand_child.src}"; // 孫imgがあれば、srcにパスを埋める
+            console.log("画像あります");
+          }
+          // 時計 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
           // いろいろ整形
           child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
@@ -93,8 +103,8 @@
             img_tag.src = img.result;
           });
           img.readAsDataURL(img_file); // パスを取得する
-          img_tag.height = 250; // リサイズ
-          img_tag.width = 250; // リサイズ
+          img_tag.height = 280; // リサイズ
+          img_tag.width = 280; // リサイズ
         };
       </script>  
     </body>  

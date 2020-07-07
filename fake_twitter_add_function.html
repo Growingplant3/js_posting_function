@@ -47,7 +47,7 @@
             var img_src = img.readAsDataURL(img_file); // パスを取得する
             img_tag.height = 250; // リサイズ
             img_tag.width = 250; // リサイズ
-            img_tag.src = "${img.src}";
+            img_tag.src = "${img.src}"; // imgが用意されていれば、output_imgタグのsrcにパスを埋める
             console.log(img.src);
             child.innerText += "\n";
           };

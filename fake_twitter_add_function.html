@@ -41,6 +41,7 @@
               grand_child.src = img.result;
             });
             var img_src = img.readAsDataURL(img_file); // パスを取得する
+            img_tag.parentNode.removeChild(imt_tag);
             img_tag.height = 280; // リサイズ
             img_tag.width = 280; // リサイズ
           };
@@ -75,7 +76,7 @@
           }
           // 画像ファイルがあれば
           if ( img_file ) {
-            img_tag.src = "${grand_child.src}"; // 孫imgがあれば、srcにパスを埋める
+            grand_child.src = img.readAsDataURL(img_file); // 孫imgがあれば、srcにパスを埋める
             console.log("画像あります");
           }
           // 時計 投稿する文字列の下に年月日時間を出力

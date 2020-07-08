@@ -15,27 +15,55 @@
 
       <script type="text/javascript">
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
-        var parent = document.createElement("ul"); // 子タグを入れる親タグを生み出す
+        var parent = document.createElement("ul"); // 子ノードを入れる親ノードを生み出す
         parent.id = "childs_list" // 親idをchilds_listと宣言する
-        document.body.appendChild(parent); // bodyの最後に親タグを入れる
+        document.body.appendChild(parent); // bodyの最後に親ノードを入れる１
+        var childs_list = document.getElementById("childs_list"); //親idを取得
+        childs_list.style.padding = "0px";
+        childs_list.style.marginBottom = "0px";
+        childs_list.style.marginTop = "0px";
+        childs_list.style.width = "300px";
+
+        // 画像ファイル選択ボタン
+        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
+        function handleFiles(files) {
+          var img_file = button.files[0]; // 画像ファイルを取得する
+          var img_tag = document.getElementById("preview"); // imgタグを取得する
+          var img = new FileReader();
+          img.onload = (function() {
+            img_tag.src = img.result;
+          });
+          img.readAsDataURL(img_file); // パスを取得する
+          img_tag.height = 280; // リサイズ
+          img_tag.width = 280; // リサイズ
+        };
 
         // 投稿ボタン
         btn.addEventListener('click', function() {
           // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
-          var child = document.createElement("li"); // 子要素を入れるタグを生み出す
-          child.id = "grand_childs_list"; // 孫要素を入れる子id
-          var childs_list = document.getElementById("childs_list"); //親idを取得
+          var child = document.createElement("li"); // 子ノードを生み出す
+          child.id = "grand_childs_list"; // 子idを宣言する
           childs_list.appendChild(child); // 親タグ内に子要素を入れる
+          child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
+          child.style.borderRadius = "10px"; // 枠に丸みをつける
+          child.style.padding = "6px";
+          child.style.marginTop = "6px";
+          child.style.marginRight = "6px";
+          child.style.marginBottom = "6px";
+          if ( input.value ) {
+            child.innerText = input.value + "\n";
+            console.log("文字列あります");
+          }
           // 画像ファイル
           var img_file = button.files[0]; // 画像ファイルを取得する
-          if ( img_file ) { 
+          if ( img_file ) {
+            console.log("画像あります");
             var grand_child = document.createElement("img"); // 画像ファイルがあれば、孫要素のimgタグを生み出す
             grand_child.id = "output_img";
             grand_child.src = " ";
             var grand_childs_list = document.getElementById("grand_childs_list"); // 子idを取得
             grand_childs_list.appendChild(grand_child); // 孫要素を子タグに追加
-            var img_tag = document.getElementById("output_img"); // 孫要素を取得
             var img = new FileReader();
             img.onload = (function() {
               grand_child.src = img.result;
@@ -62,51 +90,8 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
-
-          // 投稿部分
-          // 文字列も画像ファイルもなければ
-          if ( input.value === null && img_file === null ) {
-            alert('投稿するものがありません。');
-            return
-          }
-          // 文字列があれば
-          if ( input.value ) {
-            child.innerText += input.value + "\n";
-            console.log("文字列あります");
-          }
-          // 画像ファイルがあれば
-          if ( img_file ) {
-            grand_child.src = img.readAsDataURL(img_file); // 孫imgがあれば、srcにパスを埋める
-            console.log("画像あります");
-          }
-          // 時計 投稿する文字列の下に年月日時間を出力
           child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
-          // いろいろ整形
-          child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
-          child.style.borderRadius = "10px"; // 枠に丸みをつける
-          child.style.padding = "6px";
-          child.style.marginTop = "6px";
-          child.style.marginRight = "6px";
-          child.style.marginBottom = "6px";
-          childs_list.style.padding = "0px";
-          childs_list.style.marginBottom = "0px";
-          childs_list.style.marginTop = "0px";
-          childs_list.style.width = "300px";
         });
-
-        // 画像ファイル選択ボタン
-        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
-        function handleFiles(files) {
-          var img_file = button.files[0]; // 画像ファイルを取得する
-          var img_tag = document.getElementById("preview"); // imgタグを取得する
-          var img = new FileReader();
-          img.onload = (function() {
-            img_tag.src = img.result;
-          });
-          img.readAsDataURL(img_file); // パスを取得する
-          img_tag.height = 280; // リサイズ
-          img_tag.width = 280; // リサイズ
-        };
       </script>  
     </body>  
 </html>

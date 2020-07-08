@@ -39,8 +39,11 @@
           count += 1 // 1投稿毎に、1増やす
           var childs_list = document.getElementById("childs_list"); //親idを取得
           var child = document.createElement("ul"); // 孫ノードを入れる子ノードを生み出す
+          console.log(child);
           child.name = "text";
+          console.log(child.name);
           var grand_childs_list = document.getElementsByName("text[count]");
+          console.log(grand_childs_list);
           parent.appendChild(child); // 親ノードに子ノードを入れる
           // 整形
           childs_list.style.padding = "0px";
@@ -56,11 +59,15 @@
           // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var grand_childs_text = document.createElement("ul"); // 孫ノード(text)を生み出す
+          console.log(grand_childs_text);
           grand_childs_text.name = "grand_childs_text_name"; // 孫ノードにnameを付与
+          console.log(grand_childs_text);
+          console.log(grand_childs_text.name);
           var grand_childs_text_tag = document.getElementsByName("grand_childs_text_name[count]"); // 孫ノードを取得
-          child.appendChild(grand_childs_text_tag); // 子ノードに孫ノードを入れる
+          child.appendChild(grand_childs_text); // 子ノードに孫ノードを入れる
           if ( input.value ) {
-            grand_childs_text_tag.innerText = input.value + "\n";
+            console.log(grand_childs_text_tag)
+            grand_childs_text_tag = input.value + "\n";
             console.log("文字列あります"); // 通過確認用
             console.log(grand_childs_text_tag)
           }

@@ -14,18 +14,14 @@
       <img id="preview" src=" ">
 
       <script type="text/javascript">
+        var count = -1 // 投稿回数を確認する変数
+        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
         var parent = document.createElement("ul"); // 子ノードを入れる親ノードを生み出す
         parent.id = "childs_list" // 親idをchilds_listと宣言する
-        document.body.appendChild(parent); // bodyの最後に親ノードを入れる１
-        var childs_list = document.getElementById("childs_list"); //親idを取得
-        childs_list.style.padding = "0px";
-        childs_list.style.marginBottom = "0px";
-        childs_list.style.marginTop = "0px";
-        childs_list.style.width = "300px";
-
+        document.body.appendChild(parent); // bodyの最後に親ノードを入れる
+ 
         // 画像ファイル選択ボタン
-        var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         function handleFiles(files) {
           var img_file = button.files[0]; // 画像ファイルを取得する
           var img_tag = document.getElementById("preview"); // imgタグを取得する
@@ -40,38 +36,50 @@
 
         // 投稿ボタン
         btn.addEventListener('click', function() {
-          // 文字列
-          var input = document.getElementById("mTextarea"); // 入力部分を取得
-          var child = document.createElement("li"); // 子ノードを生み出す
-          child.id = "grand_childs_list"; // 子idを宣言する
-          childs_list.appendChild(child); // 親タグ内に子要素を入れる
+          count += 1 // 1投稿毎に、1増やす
+          var childs_list = document.getElementById("childs_list"); //親idを取得
+          var child = document.createElement("ul"); // 孫ノードを入れる子ノードを生み出す
+          child.name = "text";
+          var grand_childs_list = document.getElementsByName("text[count]");
+          parent.appendChild(child); // 親ノードに子ノードを入れる
+          // 整形
+          childs_list.style.padding = "0px";
+          childs_list.style.marginBottom = "0px";
+          childs_list.style.marginTop = "0px";
+          childs_list.style.width = "300px";
           child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
           child.style.borderRadius = "10px"; // 枠に丸みをつける
           child.style.padding = "6px";
           child.style.marginTop = "6px";
           child.style.marginRight = "6px";
           child.style.marginBottom = "6px";
+          // 文字列
+          var input = document.getElementById("mTextarea"); // 入力部分を取得
+          var grand_childs_text = document.createElement("ul"); // 孫ノード(text)を生み出す
+          grand_childs_text.name = "grand_childs_text_name"; // 孫ノードにnameを付与
+          var grand_childs_text_tag = document.getElementsByName("grand_childs_text_name[count]"); // 孫ノードを取得
+          child.appendChild(grand_childs_text_tag); // 子ノードに孫ノードを入れる
           if ( input.value ) {
-            child.innerText = input.value + "\n";
-            console.log("文字列あります");
+            grand_childs_text_tag.innerText = input.value + "\n";
+            console.log("文字列あります"); // 通過確認用
+            console.log(grand_childs_text_tag)
           }
           // 画像ファイル
           var img_file = button.files[0]; // 画像ファイルを取得する
           if ( img_file ) {
-            console.log("画像あります");
-            var grand_child = document.createElement("img"); // 画像ファイルがあれば、孫要素のimgタグを生み出す
-            grand_child.id = "output_img";
-            grand_child.src = " ";
-            var grand_childs_list = document.getElementById("grand_childs_list"); // 子idを取得
-            grand_childs_list.appendChild(grand_child); // 孫要素を子タグに追加
+            var grand_childs_img = document.createElement("img"); // 孫ノード(img)を生み出す
+            grand_childs_img.name = "output_img"; // 孫ノードにnameを付与
+            grand_childs_img.src = " "; // 空のsrcを設定
+            var grand_childs_img_tag = document.getElementsByName("output_img[count]"); // 子ノード(img)を配列で取得
+            child.appendChild(grand_childs_img); // 孫ノードを子ノードに追加
             var img = new FileReader();
-            img.onload = (function() {
-              grand_child.src = img.result;
-            });
-            var img_src = img.readAsDataURL(img_file); // パスを取得する
-            img_tag.parentNode.removeChild(imt_tag);
-            img_tag.height = 280; // リサイズ
-            img_tag.width = 280; // リサイズ
+            //img.onload = (function() {
+              grand_childs_img_tag.src = img.result;
+            //});
+            img.readAsDataURL(img_file); // パスを取得する
+            grand_childs_img_tag.height = 280; // リサイズ
+            grand_childs_img_tag.width = 280; // リサイズ
+            console.log("画像あります"); // 通過確認用
           };
           // 時計
           var today = new Date(); // 年月日時間を取得
@@ -90,7 +98,11 @@
           if (second < 10) {
             second = "0" + second // 秒が1桁だったら、0を足して2桁にする
           }
-          child.innerHTML += "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
+          var record = document.createElement("ul") // 子ノード(record)を生み出す
+          record.name = "record"
+          var record_tag = document.getElementsByName("record[count]");
+          child.appendChild(record);
+          record_tag.innerText = "投稿日 "+year+"年"+month+"月"+day+"日"+hour+":"+minute+":"+second;
         });
       </script>  
     </body>  

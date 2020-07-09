@@ -40,8 +40,9 @@
           var posting_frame = document.getElementById("posting_frame"); //親idを取得
           var child = document.createElement("li"); // 孫ノードを入れる子ノードを生み出す
           posting_frame.appendChild(child); // 親ノードに子ノードを入れる
-          child.setAttribute("class", "one_frame") // 子ノードにクラス名(one_frame)を付与する
+          child.setAttribute("class", "one_frame"); // 子ノードにクラス名(one_frame)を付与する
           var grand_childs_lists = document.getElementsByClassName("one_frame"); // 子クラス(one_frame)を配列で取得する
+          console.log(grand_childs_lists);
           console.log(grand_childs_lists[count]);
           // 整形
           posting_frame.style.padding = "0px";
@@ -58,12 +59,13 @@
           var input = document.getElementById("mTextarea"); // 入力部分を取得
           var grand_childs_text = document.createElement("p"); // 孫ノードを生み出す
           grand_childs_lists[count].appendChild(grand_childs_text); // 子ノードに孫ノードを入れる
-          grand_childs_text.setAttribute = ("class","ont_string"); // 孫ノードにクラス名(one_string)を付与
-          var text_tags = document.getElementsByClassName("ond_string"); // 孫クラス(one_string)を配列で取得
+          grand_childs_text.setAttribute = ("class", "one_string"); // 孫ノードにクラス名(one_string)を付与
+          var text_tags = document.getElementsByClassName("one_string"); // 孫クラス(one_string)を配列で取得
+          console.log(grand_childs_text);
           console.log(text_tags);
           console.log(text_tags[count]);
           if ( input.value ) {
-            text_tags[count].innerText = input.value + "\n";
+            //text_tags[count].innerHTML = input.value + "\n";
             console.log("文字列あります"); // 通過確認用
           }
           // 画像ファイル

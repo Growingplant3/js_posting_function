@@ -11,11 +11,25 @@
       </form>  
       <button id="submitBtn">投稿</button>
       <input type="file" id="img_posting_btn" accept="image/*" onchange="handleFiles(this.files)"><br>
-      <img id="preview" src=" ">
+      <li id="preview_position">
+        <p id="preview_text">プレビュー</p>
+        <img id="preview" src=" ">
+      </li>
 
       <script type="text/javascript">
+        var preview_position = document.getElementById("preview_position");
+        preview_position.style.border = "solid 2px blue"; // 投稿内容に枠を設ける
+        preview_position.style.borderRadius = "10px"; // 枠に丸みをつける
+        preview_position.style.padding = "6px";
+        preview_position.style.marginTop = "6px";
+        preview_position.style.marginRight = "6px";
+        preview_position.style.marginBottom = "6px";
+        preview_position.style.width = "280px";
+        preview_position.style.listStyle = "none";
+        var preview_text = document.getElementById("preview_text");
+        preview_text.style.marginTop = "0px";
+        preview_text.style.marginBottom = "0px";
         var count = -1 // 投稿回数を確認する変数
-        var img_count = -1 // 写真投稿回数を確認する変数
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
         var parent = document.createElement("ul"); // 子ノードを入れる親ノードを生み出す
@@ -26,6 +40,7 @@
         function handleFiles(files) {
           var img_file = button.files[0]; // 画像ファイルを取得する
           var img_tag = document.getElementById("preview"); // imgタグを取得する
+          img_tag.style.visibility = "visible";
           var img = new FileReader();
           img.onload = (function() {
             img_tag.src = img.result;
@@ -48,6 +63,7 @@
           child.setAttribute("class", "one_frame"); // 子ノードにクラス名(one_frame)を付与する
           var grand_childs_lists = document.getElementsByClassName("one_frame"); // 子クラス(one_frame)を配列で取得する
           // 整形
+          posting_frame.style.listStyle = "none";
           posting_frame.style.padding = "0px";
           posting_frame.style.marginBottom = "0px";
           posting_frame.style.marginTop = "0px";
@@ -84,8 +100,7 @@
             if (grand_childs_img.width > 280) {
               grand_childs_img.width = 280;
             }
-            img_tag.height = 0;
-            img_tag.width = 0
+            img_tag.style.visibility = "hidden";
             button.value = null;
           };
           // 時計

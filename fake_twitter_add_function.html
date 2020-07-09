@@ -13,7 +13,7 @@
       <input type="file" id="img_posting_btn" accept="image/*" onchange="handleFiles(this.files)"><br>
       <li id="preview_position">
         <p id="preview_text">プレビュー</p>
-        <img id="preview" src=" ">
+        <img id="preview" src=" " width=" " height=" ">
       </li>
 
       <script type="text/javascript">
@@ -42,16 +42,10 @@
           var img_tag = document.getElementById("preview"); // imgタグを取得する
           img_tag.style.visibility = "visible";
           var img = new FileReader();
-          img.onload = (function() {
+          img.onload = function() {
             img_tag.src = img.result;
-          });
+          };
           img.readAsDataURL(img_file); // パスを取得する
-          if (img_tag.height > 280) {
-            img_tag.height = 280; // リサイズ
-          }
-          if (img_tag.width > 280) {
-            img_tag.width = 280; // リサイズ
-          }
         };
 
         // 投稿ボタン

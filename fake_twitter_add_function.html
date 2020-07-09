@@ -18,7 +18,7 @@
         var button = document.getElementById("img_posting_btn"); //画像ファイル追加ボタンのタグを取得
         var btn = document.getElementById("submitBtn"); // 投稿ボタンのタグを取得
         var parent = document.createElement("ul"); // 子ノードを入れる親ノードを生み出す
-        parent.id = "childs_list" // 親idをchilds_listと宣言する
+        parent.id = "posting_frame" // 親idをposting_frameと宣言する
         document.body.appendChild(parent); // bodyの最後に親ノードを入れる
  
         // 画像ファイル選択ボタン
@@ -37,19 +37,17 @@
         // 投稿ボタン
         btn.addEventListener('click', function() {
           count += 1 // 1投稿毎に、1増やす
-          var childs_list = document.getElementById("childs_list"); //親idを取得
-          var child = document.createElement("ul"); // 孫ノードを入れる子ノードを生み出す
-          console.log(child);
-          child.name = "text";
-          console.log(child.name);
-          var grand_childs_list = document.getElementsByName("text[count]");
-          console.log(grand_childs_list);
-          parent.appendChild(child); // 親ノードに子ノードを入れる
+          var posting_frame = document.getElementById("posting_frame"); //親idを取得
+          var child = document.createElement("li"); // 孫ノードを入れる子ノードを生み出す
+          posting_frame.appendChild(child); // 親ノードに子ノードを入れる
+          child.setAttribute("class", "one_frame") // 子ノードにクラス名(one_frame)を付与する
+          var grand_childs_lists = document.getElementsByClassName("one_frame"); // 子クラス(one_frame)を配列で取得する
+          console.log(grand_childs_lists[count]);
           // 整形
-          childs_list.style.padding = "0px";
-          childs_list.style.marginBottom = "0px";
-          childs_list.style.marginTop = "0px";
-          childs_list.style.width = "300px";
+          posting_frame.style.padding = "0px";
+          posting_frame.style.marginBottom = "0px";
+          posting_frame.style.marginTop = "0px";
+          posting_frame.style.width = "300px";
           child.style.border = "solid 1px green"; // 投稿内容に枠を設ける
           child.style.borderRadius = "10px"; // 枠に丸みをつける
           child.style.padding = "6px";
@@ -58,18 +56,15 @@
           child.style.marginBottom = "6px";
           // 文字列
           var input = document.getElementById("mTextarea"); // 入力部分を取得
-          var grand_childs_text = document.createElement("ul"); // 孫ノード(text)を生み出す
-          console.log(grand_childs_text);
-          grand_childs_text.name = "grand_childs_text_name"; // 孫ノードにnameを付与
-          console.log(grand_childs_text);
-          console.log(grand_childs_text.name);
-          var grand_childs_text_tag = document.getElementsByName("grand_childs_text_name[count]"); // 孫ノードを取得
-          child.appendChild(grand_childs_text); // 子ノードに孫ノードを入れる
+          var grand_childs_text = document.createElement("p"); // 孫ノードを生み出す
+          grand_childs_lists[count].appendChild(grand_childs_text); // 子ノードに孫ノードを入れる
+          grand_childs_text.setAttribute = ("class","ont_string"); // 孫ノードにクラス名(one_string)を付与
+          var text_tags = document.getElementsByClassName("ond_string"); // 孫クラス(one_string)を配列で取得
+          console.log(text_tags);
+          console.log(text_tags[count]);
           if ( input.value ) {
-            console.log(grand_childs_text_tag)
-            grand_childs_text_tag = input.value + "\n";
+            text_tags[count].innerText = input.value + "\n";
             console.log("文字列あります"); // 通過確認用
-            console.log(grand_childs_text_tag)
           }
           // 画像ファイル
           var img_file = button.files[0]; // 画像ファイルを取得する
